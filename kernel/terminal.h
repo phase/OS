@@ -1,12 +1,6 @@
 #ifndef TERMINAL_H
 #define TERMINAL_H 1
-
-//Standard Library
-#if !defined(__cplusplus)
-#include <stdbool.h>
-#endif
-#include <stddef.h>
-#include <stdint.h>
+#include "types.h"
 
 // VGA
 static const size_t VGA_WIDTH = 80;

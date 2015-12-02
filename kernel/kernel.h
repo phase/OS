@@ -1,12 +1,8 @@
 #ifndef KERNEL_H
 #define KERNEL_H 1
-
-//Standard Library
-#if !defined(__cplusplus)
-#include <stdbool.h>
-#endif
-#include <stddef.h>
-#include <stdint.h>
+#include "types.h"
+#include "terminal.h"
+#include "string.h"
 
 // Hardware text mode color constants
 /* enum VGA_COLOR {
@@ -29,8 +25,8 @@
 }; */
 
 // Printing to screen
-void print(const char*, size_t);
+void print(string, size_t);
 void newline();
-void println(const char*, size_t);
+void println(string, size_t);
 
 #endif

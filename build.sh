@@ -1,5 +1,6 @@
 rm -rf bin
 mkdir -p bin
+rm -f kernel.out
 
 echo "Finding Sources..."
 CSOURCES=$(find kernel -type f -name "*.c")

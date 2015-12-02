@@ -1,19 +1,11 @@
 #include "kernel.h"
-#include "terminal.h"
- 
-size_t strlen(const char* str) {
-    size_t ret = 0;
-    while ( str[ret] != 0 )
-        ret++;
-    return ret;
-}
- 
-void puts(const char* data) {
+
+void puts(string data) {
     size_t datalen = strlen(data);
     for (size_t i = 0; i < datalen; i++) putChar(data[i]);
 }
 
-void print(const char* data, size_t c) {
+void print(string data, size_t c) {
     terminalSetColor(makeColor(c, 0x0));
     puts(data);
 }
@@ -22,7 +14,7 @@ void newline() {
     putChar('\n');
 }
 
-void println(const char* data, size_t c) {
+void println(string data, size_t c) {
     print(data, c);
     newline();
 }
