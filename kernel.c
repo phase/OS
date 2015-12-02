@@ -70,29 +70,29 @@ void terminalPutEntryAt(char c, uint8_t color, size_t x, size_t y) {
     const size_t index = y * VGA_WIDTH + x;
     tbuf[index] = makeVgaEntry(c, color);
 }
- 
+
+void print(const char*);
+
 void putChar(char c) {
-    terminalPutEntryAt(c, tcolor, tx, ty);
-    if (++tx == VGA_WIDTH) {
+    if (c == '\n') {
         tx = 0;
-        if (++ty == VGA_HEIGHT) ty = 0;
+        ty++;
+    }
+    else if (c == '\t') {
+        print("    ");
+    }
+    else {
+        terminalPutEntryAt(c, tcolor, tx, ty);
+        if (++tx == VGA_WIDTH) {
+            tx = 0;
+            if (++ty == VGA_HEIGHT) ty = 0;
+        }
     }
 }
  
 void print(const char* data) {
     size_t datalen = strlen(data);
-    for (size_t i = 0; i < datalen; i++){
-        if (data[i] == '\n') {
-            tx = 0;
-            ty++;
-        } 
-        else if (data[i] == '\t') {
-            print("    ");
-        }
-        else {
-            putChar(data[i]);
-        }
-    }
+    for (size_t i = 0; i < datalen; i++) putChar(data[i]);
 }
 
 void printc(const char* data, enum VGA_COLOR fg) {
