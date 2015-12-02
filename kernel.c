@@ -44,14 +44,14 @@ size_t strlen(const char* str) {
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
  
-size_t trow;
-size_t tcol;
+size_t ty;
+size_t tx;
 uint8_t tcolor;
 uint16_t* tbuf;
  
 void terminalInit() {
-    trow = 0;
-    tcol = 0;
+    ty = 0;
+    tx = 0;
     tcolor = makeColor(COLOR_LIGHT_GREY, COLOR_BLACK);
     tbuf = (uint16_t*) 0xB8000;
     for (size_t y = 0; y < VGA_HEIGHT; y++) {
@@ -72,10 +72,10 @@ void terminalPutEntryAt(char c, uint8_t color, size_t x, size_t y) {
 }
  
 void putChar(char c) {
-    terminalPutEntryAt(c, tcolor, tcol, trow);
-    if (++tcol == VGA_WIDTH) {
-        tcol = 0;
-        if (++trow == VGA_HEIGHT) trow = 0;
+    terminalPutEntryAt(c, tcolor, tx, ty);
+    if (++tx == VGA_WIDTH) {
+        tx = 0;
+        if (++ty == VGA_HEIGHT) ty = 0;
     }
 }
  
@@ -83,8 +83,8 @@ void print(const char* data) {
     size_t datalen = strlen(data);
     for (size_t i = 0; i < datalen; i++){
         if (data[i] == '\n') {
-            tcol = 0;
-            trow++;
+            tx = 0;
+            ty++;
         } 
         else if (data[i] == '\t') {
             print("    ");
