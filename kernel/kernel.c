@@ -1,6 +1,6 @@
 #include "kernel.h"
 
-uint8_t makeColor(enum VGA_COLOR fg, enum VGA_COLOR bg) {
+uint8_t makeColor(size_t fg, size_t bg) {
     return fg | bg << 4;
 }
  
@@ -37,7 +37,7 @@ void clearScreen() {
 void terminalInit() {
     ty = 0;
     tx = 0;
-    tcolor = makeColor(COLOR_LIGHT_GREY, COLOR_BLACK);
+    tcolor = makeColor(0x7, 0x0);
     tbuf = (uint16_t*) 0xB8000;
     clearScreen();
 }
@@ -51,7 +51,7 @@ void terminalPutEntryAt(char c, uint8_t color, size_t x, size_t y) {
     tbuf[index] = makeVgaEntry(c, color);
 }
 
-void print(const char*);
+void print(const char*, size_t);
 
 void putChar(char c) {
     if (c == '\n') {
@@ -59,7 +59,7 @@ void putChar(char c) {
         ty++;
     }
     else if (c == '\t') {
-        print("    ");
+        print("    ", tcolor);
     }
     else {
         terminalPutEntryAt(c, tcolor, tx, ty);
@@ -70,14 +70,23 @@ void putChar(char c) {
     }
 }
  
-void print(const char* data) {
+void puts(const char* data) {
     size_t datalen = strlen(data);
     for (size_t i = 0; i < datalen; i++) putChar(data[i]);
 }
 
-void printc(const char* data, enum VGA_COLOR fg) {
-    terminalSetColor(makeColor(fg, COLOR_BLACK));
-    print(data);
+void print(const char* data, size_t c) {
+    terminalSetColor(makeColor(c, 0x0));
+    puts(data);
+}
+
+void newline() {
+    putChar('\n');
+}
+
+void println(const char* data, size_t c) {
+    print(data, c);
+    newline();
 }
  
 #if defined(__cplusplus)
@@ -85,5 +94,5 @@ extern "C" /* Use C linkage for kmain. */
 #endif
 void kmain() {
     terminalInit();
-    printc("Operating System\n\tVersion 0.0.0", COLOR_BLUE);
+    println("Operating System\n\tVersion 0.0.0", 0x4);
 }

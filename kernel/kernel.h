@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 // Hardware text mode color constants
-enum VGA_COLOR {
+/* enum VGA_COLOR {
     COLOR_BLACK = 0,
     COLOR_BLUE = 1,
     COLOR_GREEN = 2,
@@ -26,7 +26,7 @@ enum VGA_COLOR {
     COLOR_LIGHT_MAGENTA = 13,
     COLOR_LIGHT_BROWN = 14,
     COLOR_WHITE = 15,
-};
+}; */
 
 // Terminal functions
 void terminalInit();
@@ -35,8 +35,9 @@ void terminalPutEntryAt(char, uint8_t, size_t, size_t);
 void clearScreen();
 
 // Printing to screen
-void print(const char*);
-void printc(const char*, enum VGA_COLOR);
 void putChar(char);
+void print(const char*, size_t);
+void newline();
+void println(const char*, size_t);
 
 #endif
