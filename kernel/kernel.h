@@ -28,14 +28,7 @@
     COLOR_WHITE = 15,
 }; */
 
-// Terminal functions
-void terminalInit();
-void terminalSetColor(uint8_t);
-void terminalPutEntryAt(char, uint8_t, size_t, size_t);
-void clearScreen();
-
 // Printing to screen
-void putChar(char);
 void print(const char*, size_t);
 void newline();
 void println(const char*, size_t);
