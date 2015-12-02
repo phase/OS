@@ -48,18 +48,22 @@ size_t ty;
 size_t tx;
 uint8_t tcolor;
 uint16_t* tbuf;
- 
-void terminalInit() {
-    ty = 0;
-    tx = 0;
-    tcolor = makeColor(COLOR_LIGHT_GREY, COLOR_BLACK);
-    tbuf = (uint16_t*) 0xB8000;
+
+void clearScreen() {
     for (size_t y = 0; y < VGA_HEIGHT; y++) {
         for (size_t x = 0; x < VGA_WIDTH; x++) {
             const size_t index = y * VGA_WIDTH + x;
             tbuf[index] = makeVgaEntry(' ', tcolor);
         }
     }
+}
+
+void terminalInit() {
+    ty = 0;
+    tx = 0;
+    tcolor = makeColor(COLOR_LIGHT_GREY, COLOR_BLACK);
+    tbuf = (uint16_t*) 0xB8000;
+    clearScreen();
 }
  
 void terminalSetColor(uint8_t color) {
