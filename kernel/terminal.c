@@ -1,4 +1,5 @@
 #include "terminal.h"
+#include "system.h"
 
 uint8_t makeColor(size_t fg, size_t bg) {
     return fg | bg << 4;
@@ -53,4 +54,19 @@ void putChar(char c) {
             if (++ty == VGA_HEIGHT) ty = 0;
         }
     }
+}
+
+void updateCursor(){
+    unsigned pos;
+    pos = cursorY * VGA_WIDTH + cursorX;
+    out(0x3D4, 14);
+    out(0x3D5, pos >> 8);
+    out(0x3D4, 15);
+    out(0x3D5, pos);
+}
+
+void setCursor(int x, int y) {
+    cursorX = x;
+    cursorY = y;
+    updateCursor();
 }

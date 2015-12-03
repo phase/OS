@@ -25,4 +25,5 @@ extern "C" /* Use C linkage for kmain. */
 void kmain() {
     terminalInit();
     println("Operating System\n    Version 0.0.0", 0x3);
+    setCursor(5, 6);
 }

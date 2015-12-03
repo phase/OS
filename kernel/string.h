@@ -3,10 +3,9 @@
 #include "types.h"
 
 size_t strlen(string str) {
-    size_t ret = 0;
-    while ( str[ret] != 0 )
-        ret++;
-    return ret;
+    size_t i = 0;
+    while(str[i++]);
+    return i;
 }
 
 #endif
