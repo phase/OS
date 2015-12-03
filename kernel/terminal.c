@@ -16,6 +16,13 @@ size_t tx;
 uint8_t tcolor;
 uint16_t* tbuf;
 
+void clearLine(size_t l) {
+    for (size_t x = 0; x < VGA_WIDTH; x++) {
+        const size_t index = l * VGA_WIDTH + x;
+        tbuf[index] = makeVgaEntry(' ', tcolor);
+    }
+}
+
 void clearScreen() {
     for (size_t y = 0; y < VGA_HEIGHT; y++) {
         for (size_t x = 0; x < VGA_WIDTH; x++) {
@@ -51,9 +58,14 @@ void putChar(char c) {
         terminalPutEntryAt(c, tcolor, tx, ty);
         if (++tx == VGA_WIDTH) {
             tx = 0;
-            if (++ty == VGA_HEIGHT) ty = 0;
+            if (++ty == VGA_HEIGHT){
+                ty = 0;
+                clearScreen();
+            }
         }
+        
     }
+    setCursor(tx, ty);
 }
 
 void updateCursor(){

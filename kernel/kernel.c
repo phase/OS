@@ -28,7 +28,9 @@ const char chars[256] =    {
     'm', ',', '.', '/',  0 , '*',  0 , ' ',  0 ,
 };
 
-string readString() {
+string input;
+
+void readString() {
     char buff;
     string buffstr;
     uint8 i = 0;
@@ -50,20 +52,17 @@ string readString() {
         }
     }
     buffstr[i] = 0;
+    input = buffstr;
     putChar('\n');
-    print(buffstr, 0x05);
-    return copyString(buffstr);
+    println(input, 0x5);
+    terminalSetColor(0x04);
+    readString();
 }
- 
-#if defined(__cplusplus)
-extern "C" /* Use C linkage for kmain. */
-#endif
+
 void kmain() {
     terminalInit();
-    println("Operating System\n    Version 0.0.0", 0x3);
-    setCursor(5, 6);
+    println("Operating System\n    Version -0", 0x3);
     println("Input: ", 0x04);
-    string input = readString();
+    readString();
     println("Back out", 0x04);
-    println(input, 0x4);
 }
