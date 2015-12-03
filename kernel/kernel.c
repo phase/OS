@@ -26,4 +26,6 @@ void kmain() {
     terminalInit();
     println("Operating System\n    Version 0.0.0", 0x3);
     setCursor(5, 6);
+    string input = readString();
+    println(input, 0x4);
 }
