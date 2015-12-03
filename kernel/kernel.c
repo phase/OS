@@ -39,13 +39,20 @@ string readString() {
             uint8 in = inportb(0x60);
             if(chars[in]) {
                 putChar(chars[in]);
-                buffstr[i] = chars[in];
-                i++;
+                buffstr[i++] = chars[in];
+            }
+            else if(in == 14) { //backspace
+                buffstr[i--] = 0;
+            }
+            else if(in == 28) { //enter
+                reading = 0;
             }
         }
     }
-    buffstr[i] = 0;                   
-    return buffstr;
+    buffstr[i] = 0;
+    putChar('\n');
+    print(buffstr, 0x05);
+    return copyString(buffstr);
 }
  
 #if defined(__cplusplus)
@@ -55,6 +62,8 @@ void kmain() {
     terminalInit();
     println("Operating System\n    Version 0.0.0", 0x3);
     setCursor(5, 6);
+    println("Input: ", 0x04);
     string input = readString();
+    println("Back out", 0x04);
     println(input, 0x4);
 }

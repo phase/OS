@@ -70,3 +70,12 @@ void setCursor(int x, int y) {
     cursorY = y;
     updateCursor();
 }
+
+void moveTextPosition(int a) { //slow af
+    for(int i = 0; i < a; i++)  {
+        if (++tx == VGA_WIDTH) {
+            tx = 0;
+            if (++ty == VGA_HEIGHT) ty = 0;
+        }
+    }
+}

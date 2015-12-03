@@ -8,4 +8,12 @@ size_t strlen(string str) {
     return i;
 }
 
+string copyString(string str) {
+    string tmp;
+    for(int i = 0; i < strlen(str); i++) {
+        tmp[i] = str[i];
+    }
+    return tmp;
+}
+
 #endif
