@@ -28,11 +28,9 @@ const char chars[256] =    {
     'm', ',', '.', '/',  0 , '*',  0 , ' ',  0 ,
 };
 
-string input;
-
-void readString() {
+string readString() {
     char buff;
-    string buffstr;
+    string buffstr = "";
     uint8 i = 0;
     uint8 reading = 1;
     while(reading) {
@@ -45,6 +43,7 @@ void readString() {
             }
             else if(in == 14) { //backspace
                 buffstr[i--] = 0;
+                buffstr[i] = 0;
                 clearCurrentLine();
                 print(buffstr, getTerminalColor());
             }
@@ -54,17 +53,15 @@ void readString() {
         }
     }
     buffstr[i] = 0;
-    input = buffstr;
     putChar('\n');
-    println(input, 0x5);
-    terminalSetColor(0x04);
-    readString();
+    return buffstr;
 }
 
 void kmain() {
     terminalInit();
     println("Operating System\n    Version -0", 0x3);
     println("Input: ", 0x04);
-    readString();
+    string input = readString();
+    println(input, 0x02);
     println("Back out", 0x04);
 }
