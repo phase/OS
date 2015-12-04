@@ -23,6 +23,12 @@ void clearLine(size_t l) {
     }
 }
 
+void clearCurrentLine() {
+    clearLine(ty);
+    tx = 0;
+    setCursor(0,cursorY);
+}
+
 void clearScreen() {
     for (size_t y = 0; y < VGA_HEIGHT; y++) {
         for (size_t x = 0; x < VGA_WIDTH; x++) {
@@ -43,7 +49,11 @@ void terminalInit() {
 void terminalSetColor(uint8_t color) {
     tcolor = color;
 }
- 
+
+uint8_t getTerminalColor() {
+    return tcolor;
+}
+
 void terminalPutEntryAt(char c, uint8_t color, size_t x, size_t y) {
     const size_t index = y * VGA_WIDTH + x;
     tbuf[index] = makeVgaEntry(c, color);

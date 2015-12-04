@@ -45,6 +45,8 @@ void readString() {
             }
             else if(in == 14) { //backspace
                 buffstr[i--] = 0;
+                clearCurrentLine();
+                print(buffstr, getTerminalColor());
             }
             else if(in == 28) { //enter
                 reading = 0;

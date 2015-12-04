@@ -18,5 +18,8 @@ void clearScreen();
 void putChar(char);
 void updateCursor();
 void setCursor(int, int);
+void clearLine();
+void clearCurrentLine();
+uint8_t getTerminalColor();
 
 #endif
